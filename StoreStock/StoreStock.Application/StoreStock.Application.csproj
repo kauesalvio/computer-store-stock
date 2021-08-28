@@ -6,8 +6,15 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Validators\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StoreStock.Domain\StoreStock.Domain.csproj" />
   </ItemGroup>
 
 </Project>
