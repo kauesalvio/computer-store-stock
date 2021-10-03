@@ -11,7 +11,7 @@ namespace StoreStock.Application.Services
         private readonly IProviderRepository _providerRepository;
 
         public ProviderService(IProviderRepository providerRepository)
-        {
+    {
             _providerRepository = providerRepository;
         }
 
