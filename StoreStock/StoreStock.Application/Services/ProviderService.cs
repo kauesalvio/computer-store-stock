@@ -17,6 +17,9 @@ namespace StoreStock.Application.Services
 
         public async Task CreateProvider(Provider provider)
         {
+            if (provider is null)
+                return;
+
             await _providerRepository.Create(provider);
         }
 
@@ -32,6 +35,9 @@ namespace StoreStock.Application.Services
 
         public void Update(Provider provider)
         {
+            if (provider is null)
+                return;
+
             _providerRepository.Update(provider);
         }
     }

@@ -8,7 +8,7 @@ namespace StoreStock.Application.Services.Interfaces
     {
         Task CreateProduct(Product product);
         Task<IEnumerable> GetAll();
-        Task GetProductId(int id);
+        Task GetProductById(int id);
         void Update(Product product);
     }
 }

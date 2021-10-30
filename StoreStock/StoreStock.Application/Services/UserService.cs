@@ -17,6 +17,9 @@ namespace StoreStock.Application.Services
 
         public async Task CreateUser(User user)
         {
+            if (user is null)
+                return;
+
             await _userRepository.Create(user);
         }
 
@@ -32,6 +35,9 @@ namespace StoreStock.Application.Services
 
         public void Update(User user)
         {
+            if (user is null)
+                return;
+
             _userRepository.Update(user);
         }
     }

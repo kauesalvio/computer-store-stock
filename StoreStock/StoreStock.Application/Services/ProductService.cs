@@ -1,7 +1,6 @@
 ﻿using StoreStock.Application.Services.Interfaces;
 using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
-using System;
 using System.Collections;
 using System.Threading.Tasks;
 
@@ -18,6 +17,9 @@ namespace StoreStock.Application.Services
 
         public async Task CreateProduct(Product product)
         {
+            if (product is null)
+                return;
+
              await _productRepository.Create(product);
         }
 
@@ -26,13 +28,16 @@ namespace StoreStock.Application.Services
             return await _productRepository.GetAll();
         }
 
-        public async Task GetProductId(int id)
+        public async Task GetProductById(int id)
         {
             await _productRepository.GetById(id);
         }
 
         public void Update(Product product)
         {
+            if (product is null)
+                return;
+
             _productRepository.Update(product);
         }
     }
