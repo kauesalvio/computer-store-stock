@@ -8,7 +8,7 @@ namespace StoreStock.Application.Models.Product
         public string Description { get; private set; }
         public long Price { get; private set; }
         public string Category { get; private set; }
-        public Provider Provider { get; private set; }
+        public int Provider { get; private set; }
         public int Unity { get; private set; }
     }
 }

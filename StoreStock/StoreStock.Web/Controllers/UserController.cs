@@ -15,7 +15,7 @@ namespace StoreStock.Web.Controllers
             _userService = userService;
         }
 
-        [HttpPost("provider")]
+        [HttpPost()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateUser([FromBody] User user)
         {
@@ -24,7 +24,7 @@ namespace StoreStock.Web.Controllers
             return Ok();
         }
 
-        [HttpPost("user/update")]
+        [HttpPost("/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
@@ -33,7 +33,7 @@ namespace StoreStock.Web.Controllers
             return Ok();
         }
 
-        [HttpGet("userById")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUserById([FromBody] int id)
         {
@@ -42,7 +42,7 @@ namespace StoreStock.Web.Controllers
             return Ok();
         }
 
-        [HttpGet("getAllUser")]
+        [HttpGet("users")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUser()
         {

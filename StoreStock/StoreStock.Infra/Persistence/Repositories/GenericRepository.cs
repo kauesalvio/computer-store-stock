@@ -38,6 +38,11 @@ namespace StoreStock.Infra.Persistence.Repositories
             _dbSet.Update(entity);
         }
 
+        public void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
+
         public async Task Save() => await _dbContext.SaveChangesAsync();
 
         protected IQueryable<T> Query() => _dbSet.AsNoTracking().Where(entity => !entity.IsActive);

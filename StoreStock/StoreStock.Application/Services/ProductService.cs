@@ -1,7 +1,8 @@
 ﻿using StoreStock.Application.Services.Interfaces;
 using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StoreStock.Application.Services
@@ -9,7 +10,7 @@ namespace StoreStock.Application.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
-        
+
         public ProductService(IProductRepository productRepository)
         {
             _productRepository = productRepository;
@@ -18,27 +19,48 @@ namespace StoreStock.Application.Services
         public async Task CreateProduct(Product product)
         {
             if (product is null)
-                return;
+            {
+                throw new Exception($"Preencha corretamente os campos para cadastrar um produto.");
+            }
 
-             await _productRepository.Create(product);
+            await _productRepository.Create(product);
         }
 
-        public async Task<IEnumerable> GetAll()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
             return await _productRepository.GetAll();
         }
 
-        public async Task GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            await _productRepository.GetById(id);
+            var product = await CheckIfProductExist(id);
+
+            return product;
         }
 
-        public void Update(Product product)
+        public async Task UpdateProduct(Product product)
         {
-            if (product is null)
-                return;
+            await CheckIfProductExist(product.Id);
 
             _productRepository.Update(product);
+        }
+
+        public async Task DeleteProduct(int id)
+        {
+            var product = await CheckIfProductExist(id);
+
+            _productRepository.Delete(product);
+        }
+
+        private async Task<Product> CheckIfProductExist(int id)
+        {
+            var productDb = await _productRepository.GetById(id);
+            if (productDb is null)
+            {
+                throw new Exception($"O Produto com o id {id} não foi encontrado!");
+            }
+
+            return productDb;
         }
     }
 }

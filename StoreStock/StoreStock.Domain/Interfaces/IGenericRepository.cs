@@ -10,5 +10,6 @@ namespace StoreStock.Domain.Interfaces
         Task<T> GetById(int id);
         Task<IEnumerable<T>> GetAll();
         Task Save();
+        void Delete(T entity);
     }
 }

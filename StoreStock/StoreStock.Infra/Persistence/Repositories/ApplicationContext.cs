@@ -5,13 +5,14 @@ namespace StoreStock.Infra.Persistence.Repositories
 {
     public class ApplicationContext : DbContext
     {
+        public ApplicationContext(DbContextOptions options)
+            : base(options)
+        {
+        }
+
         public DbSet<Product> Products { get; set; }
         public DbSet<Provider> Providers { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Data source=(localdb)\\mssqllocaldb;Initial Catalog=CursoEFCore;Integrated Security=true");
-        }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

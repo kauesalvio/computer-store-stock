@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.Domain", "StoreStock.Domain\StoreStock.Domain.csproj", "{CCAB1FA4-3E9C-4E95-ACD7-FD900C917A3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Domain", "StoreStock.Domain\StoreStock.Domain.csproj", "{CCAB1FA4-3E9C-4E95-ACD7-FD900C917A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.Application", "StoreStock.Application\StoreStock.Application.csproj", "{BE0862D2-3910-45EA-84F8-4BC8BB1BF0BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Application", "StoreStock.Application\StoreStock.Application.csproj", "{BE0862D2-3910-45EA-84F8-4BC8BB1BF0BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.Infra", "StoreStock.Infra\StoreStock.Infra.csproj", "{1D9127DA-3F6F-4984-9C94-77A5DD3CABCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Infra", "StoreStock.Infra\StoreStock.Infra.csproj", "{1D9127DA-3F6F-4984-9C94-77A5DD3CABCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.Web", "StoreStock.Web\StoreStock.Web.csproj", "{E13B8B40-88DB-4520-83F7-D41958C6A7C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Web", "StoreStock.Web\StoreStock.Web.csproj", "{E13B8B40-88DB-4520-83F7-D41958C6A7C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.UnitTests", "StoreStock.UnitTests\StoreStock.UnitTests.csproj", "{D5490A8E-8707-4371-8004-7CC977A57C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E13B8B40-88DB-4520-83F7-D41958C6A7C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E13B8B40-88DB-4520-83F7-D41958C6A7C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E13B8B40-88DB-4520-83F7-D41958C6A7C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5490A8E-8707-4371-8004-7CC977A57C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5490A8E-8707-4371-8004-7CC977A57C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5490A8E-8707-4371-8004-7CC977A57C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5490A8E-8707-4371-8004-7CC977A57C11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

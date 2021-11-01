@@ -6,48 +6,53 @@ using System.Threading.Tasks;
 
 namespace StoreStock.Web.Controllers
 {
-    [Route("[controller]")]
-    public class ProducController : BaseController
+    public class ProductController : BaseController
     {
         public readonly IProductService _productService;
 
-        public ProducController(IProductService gateService)
+        public ProductController(IProductService gateService)
         {
             _productService = gateService;
         }
 
-        [HttpPost("product")]
+        //[HttpGet("/edu")]
+        //public IActionResult Test()
+        //{
+        //    return Ok("Foi");
+        //}
+
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateProduct([FromBody] Product product)
         {
             await _productService.CreateProduct(product);
 
-            return Ok();
+            return Created("Produto criado com Sucesso!", null);
         }
 
-        [HttpPut("product/update")]
+        [HttpPut("/update")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateProduct([FromBody] Product product)
         {
-            _productService.Update(product);
+            await _productService.UpdateProduct(product);
 
-            return Ok();
+            return Ok("Produto atualizado com Sucesso!");
         }
 
-        [HttpGet("productById")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProductById([FromBody] int id)
+        public async Task<IActionResult> GetProductById([FromRoute] int id)
         {
             await _productService.GetProductById(id);
 
             return Ok();
         }
 
-        [HttpGet("getAllProduct")]
+        [HttpGet("products")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAllProduct()
+        public async Task<IActionResult> GetAllProducts()
         {
-            await _productService.GetAll();
+            await _productService.GetAllProducts();
 
             return Ok();
         }

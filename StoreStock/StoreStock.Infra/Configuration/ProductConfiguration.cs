@@ -16,6 +16,8 @@ namespace StoreStock.Infra.Configuration
             builder.Property(p => p.Price).IsRequired();
             builder.Property(p => p.Unity).HasDefaultValue(1).IsRequired();
             builder.Property(p => p.Provider).IsRequired();
+
+            //builder.HasOne(p => p.Provider).WithMany().HasForeignKey(p => p.ProviderId).IsRequired();
         }
     }
 }

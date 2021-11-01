@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace StoreStock.Web.Controllers
 {
-    [Route("[controller]")]
     public class ProviderController : BaseController
     {
         private readonly IProviderService _providerService;

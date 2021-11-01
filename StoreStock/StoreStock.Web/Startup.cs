@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using StoreStock.Application.Services;
+using StoreStock.Application.Services.Interfaces;
+using StoreStock.Domain.Interfaces;
+using StoreStock.Infra.Persistence.Repositories;
 
 namespace StoreStock.Web
 {
@@ -26,6 +23,15 @@ namespace StoreStock.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
             services.AddControllers();
         }
 
@@ -46,7 +52,6 @@ namespace StoreStock.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHealthChecks("/healthcheck/liveness", new HealthCheckOptions { Predicate = _ => false });
             });
         }
     }
