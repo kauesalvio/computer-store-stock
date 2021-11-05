@@ -1,4 +1,5 @@
-﻿using StoreStock.Application.Services.Interfaces;
+﻿using StoreStock.Application.Models.Product;
+using StoreStock.Application.Services.Interfaces;
 using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
 using System;
@@ -16,12 +17,14 @@ namespace StoreStock.Application.Services
             _productRepository = productRepository;
         }
 
-        public async Task CreateProduct(Product product)
+        public async Task CreateProduct(ProductRequestModel request)
         {
-            if (product is null)
+            if (request is null)
             {
                 throw new Exception($"Preencha corretamente os campos para cadastrar um produto.");
             }
+
+            var product = ProductMapping.MapProductRequestForProduct(request);
 
             await _productRepository.Create(product);
         }
@@ -47,9 +50,11 @@ namespace StoreStock.Application.Services
 
         public async Task DeleteProduct(int id)
         {
-            var product = await CheckIfProductExist(id);
+            var productDb = await _productRepository.GetById(id);
+            if (productDb is null)
+                throw new Exception($"O Produto com o id {id} não foi encontrado!");
 
-            _productRepository.Delete(product);
+            _productRepository.Delete(productDb);
         }
 
         private async Task<Product> CheckIfProductExist(int id)

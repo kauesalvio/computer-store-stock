@@ -21,6 +21,7 @@ namespace StoreStock.Infra.Persistence.Repositories
         public virtual async Task Create(T entity)
         {
             await _dbSet.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public virtual async Task<IEnumerable<T>> GetAll()
@@ -41,6 +42,7 @@ namespace StoreStock.Infra.Persistence.Repositories
         public void Delete(T entity)
         {
             _dbSet.Remove(entity);
+            _dbContext.SaveChanges();
         }
 
         public async Task Save() => await _dbContext.SaveChangesAsync();

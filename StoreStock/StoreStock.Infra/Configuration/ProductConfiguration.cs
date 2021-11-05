@@ -8,7 +8,7 @@ namespace StoreStock.Infra.Configuration
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {
-            builder.ToTable("Produtos");
+            builder.ToTable("Products");
             builder.Property(p => p.Id).UseIdentityColumn().IsRequired();
             builder.Property(p => p.Name).HasMaxLength(30).IsRequired();
             builder.Property(p => p.Category).HasMaxLength(20).IsRequired();

@@ -1,7 +1,8 @@
 ﻿using StoreStock.Application.Services.Interfaces;
 using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
-using System.Collections;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StoreStock.Application.Services
@@ -11,34 +12,53 @@ namespace StoreStock.Application.Services
         private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository)
-    {
+        {
             _userRepository = userRepository;
         }
 
         public async Task CreateUser(User user)
         {
             if (user is null)
-                return;
+                throw new Exception($"Preencha corretamente os campos para cadastrar um funcionário.");
 
             await _userRepository.Create(user);
         }
 
-        public async Task<IEnumerable> GetAll()
+        public async Task<IEnumerable<User>> GetAllUsers()
         {
             return await _userRepository.GetAll();
         }
 
-        public async Task GetUserId(int id)
+        public async Task<User> GetUserById(int id)
         {
-            await _userRepository.GetById(id);
+            var user = await CheckIfUserExist(id);
+
+            return user;
         }
 
-        public void Update(User user)
+        public async Task UpdateUser(User user)
         {
-            if (user is null)
-                return;
+            await CheckIfUserExist(user.Id);
 
             _userRepository.Update(user);
+        }
+
+        public async Task DeleteUser(int id)
+        {
+            var user = await CheckIfUserExist(id);
+
+            _userRepository.Delete(user);
+        }
+
+        private async Task<User> CheckIfUserExist(int id)
+        {
+            var userDb = await _userRepository.GetById(id);
+            if (userDb is null)
+            {
+                throw new Exception($"O Usuário com o id {id} não foi encontrado!");
+            }
+
+            return userDb;
         }
     }
 }

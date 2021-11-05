@@ -21,23 +21,23 @@ namespace StoreStock.Web.Controllers
         {
             await _userService.CreateUser(user);
 
-            return Ok();
+            return Created("Usuário criado com sucesso!", null);
         }
 
-        [HttpPost("/update")]
+        [HttpPut()]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] User user)
         {
-            _userService.Update(user);
+            await _userService.UpdateUser(user);
 
-            return Ok();
+            return Ok("Usuário atualizado com suceso!");
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUserById([FromBody] int id)
         {
-            await _userService.GetUserId(id);
+            await _userService.GetUserById(id);
 
             return Ok();
         }
@@ -46,7 +46,7 @@ namespace StoreStock.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllUser()
         {
-            await _userService.GetAll();
+            await _userService.GetAllUsers();
 
             return Ok();
         }

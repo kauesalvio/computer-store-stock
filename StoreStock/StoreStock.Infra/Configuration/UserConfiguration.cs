@@ -8,8 +8,9 @@ namespace StoreStock.Infra.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ToTable("Usuários");
-            builder.Property(u => u.Email).UseIdentityColumn().IsRequired();
+            builder.ToTable("Users");
+            builder.Property(f => f.Id).UseIdentityColumn();
+            builder.Property(u => u.Email).IsRequired();
             builder.Property(u => u.Password).HasMaxLength(30).IsRequired();
         }
     }
