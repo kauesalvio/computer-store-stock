@@ -10,7 +10,7 @@ namespace StoreStock.Application.Services.Interfaces
         Task CreateProduct(ProductRequestModel product);
         Task<IEnumerable<Product>> GetAllProducts();
         Task<Product> GetProductById(int id);
-        Task UpdateProduct(Product product);
+        Task UpdateProduct(int id, ProductRequestModel request);
         Task DeleteProduct(int id);
     }
 }

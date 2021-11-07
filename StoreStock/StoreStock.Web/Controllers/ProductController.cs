@@ -17,26 +17,20 @@ namespace StoreStock.Web.Controllers
             _productService = gateService;
         }
 
-        [HttpGet("/edu/edu")]
-        public IActionResult Test()
-        {
-            return Ok("Foi");
-        }
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> CreateProduct([FromBody] ProductRequestModel request)
         {
             await _productService.CreateProduct(request);
 
-            return Created("Produto criado com Sucesso!", null);
+            return Created(string.Empty, "Produto criado com Sucesso!");
         }
 
-        [HttpPut()]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> UpdateProduct([FromBody] Product product)
+        public async Task<ActionResult> UpdateProduct([FromRoute] int id, [FromBody] ProductRequestModel request)
         {
-            await _productService.UpdateProduct(product);
+            await _productService.UpdateProduct(id, request);
 
             return Ok("Produto atualizado com Sucesso!");
         }
@@ -45,9 +39,9 @@ namespace StoreStock.Web.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<Product>> GetProductById([FromRoute] int id)
         {
-            await _productService.GetProductById(id);
+            var product = await _productService.GetProductById(id);
 
-            return Ok();
+            return Ok(product);
         }
 
         [HttpGet("products")]
@@ -61,7 +55,6 @@ namespace StoreStock.Web.Controllers
 
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteProduct([FromRoute] int id)
         {
             await _productService.DeleteProduct(id);

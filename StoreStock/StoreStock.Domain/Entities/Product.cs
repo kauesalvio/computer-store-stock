@@ -20,5 +20,15 @@
             Provider = provider;
             Unity = unity;
         }
+
+        public void Update(string name, string description, long price, string category, string provider, int unity)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+            Category = category;
+            Provider = provider;
+            Unity = unity;
+        }
     }
 }

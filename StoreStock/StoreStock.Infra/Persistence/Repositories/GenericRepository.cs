@@ -37,6 +37,7 @@ namespace StoreStock.Infra.Persistence.Repositories
         public void Update(T entity)
         {
             _dbSet.Update(entity);
+            _dbContext.SaveChanges();
         }
 
         public void Delete(T entity)
@@ -47,6 +48,6 @@ namespace StoreStock.Infra.Persistence.Repositories
 
         public async Task Save() => await _dbContext.SaveChangesAsync();
 
-        protected IQueryable<T> Query() => _dbSet.AsNoTracking().Where(entity => !entity.IsActive);
+        protected IQueryable<T> Query() => _dbSet.AsNoTracking();
     }
 }

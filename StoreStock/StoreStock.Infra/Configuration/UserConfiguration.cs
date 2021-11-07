@@ -10,6 +10,7 @@ namespace StoreStock.Infra.Configuration
         {
             builder.ToTable("Users");
             builder.Property(f => f.Id).UseIdentityColumn();
+            builder.Property(u => u.Name).IsRequired();
             builder.Property(u => u.Email).IsRequired();
             builder.Property(u => u.Password).HasMaxLength(30).IsRequired();
         }

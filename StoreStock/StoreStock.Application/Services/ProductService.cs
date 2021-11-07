@@ -20,9 +20,7 @@ namespace StoreStock.Application.Services
         public async Task CreateProduct(ProductRequestModel request)
         {
             if (request is null)
-            {
                 throw new Exception($"Preencha corretamente os campos para cadastrar um produto.");
-            }
 
             var product = ProductMapping.MapProductRequestForProduct(request);
 
@@ -41,18 +39,18 @@ namespace StoreStock.Application.Services
             return product;
         }
 
-        public async Task UpdateProduct(Product product)
+        public async Task UpdateProduct(int id, ProductRequestModel request)
         {
-            await CheckIfProductExist(product.Id);
+            var product = await CheckIfProductExist(id);
+
+            product.Update(request.Name, request.Description, request.Price, request.Category, request.Provider, request.Unity);
 
             _productRepository.Update(product);
         }
 
         public async Task DeleteProduct(int id)
         {
-            var productDb = await _productRepository.GetById(id);
-            if (productDb is null)
-                throw new Exception($"O Produto com o id {id} não foi encontrado!");
+            var productDb = await CheckIfProductExist(id);
 
             _productRepository.Delete(productDb);
         }
@@ -61,9 +59,7 @@ namespace StoreStock.Application.Services
         {
             var productDb = await _productRepository.GetById(id);
             if (productDb is null)
-            {
-                throw new Exception($"O Produto com o id {id} não foi encontrado!");
-            }
+                throw new ArgumentException($"O Produto com o id {id} não foi encontrado!");
 
             return productDb;
         }

@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Infra", "StoreSt
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.Web", "StoreStock.Web\StoreStock.Web.csproj", "{E13B8B40-88DB-4520-83F7-D41958C6A7C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreStock.UnitTests", "StoreStock.UnitTests\StoreStock.UnitTests.csproj", "{D5490A8E-8707-4371-8004-7CC977A57C11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StoreStock.UnitTests", "StoreStock.UnitTests\StoreStock.UnitTests.csproj", "{D5490A8E-8707-4371-8004-7CC977A57C11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

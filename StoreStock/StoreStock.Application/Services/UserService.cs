@@ -1,4 +1,5 @@
-﻿using StoreStock.Application.Services.Interfaces;
+﻿using StoreStock.Application.Models.User;
+using StoreStock.Application.Services.Interfaces;
 using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
 using System;
@@ -16,10 +17,12 @@ namespace StoreStock.Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task CreateUser(User user)
+        public async Task CreateUser(UserRequestModel request)
         {
-            if (user is null)
+            if (request is null)
                 throw new Exception($"Preencha corretamente os campos para cadastrar um funcionário.");
+
+            var user = UserMapping.MapUserRequestForUser(request);
 
             await _userRepository.Create(user);
         }
@@ -36,9 +39,11 @@ namespace StoreStock.Application.Services
             return user;
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateUser(int id, UserRequestModel request)
         {
-            await CheckIfUserExist(user.Id);
+            var user = await CheckIfUserExist(id);
+
+            user.Update(request.Name, request.Email, request.Password);
 
             _userRepository.Update(user);
         }
