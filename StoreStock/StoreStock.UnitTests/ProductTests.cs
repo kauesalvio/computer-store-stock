@@ -1,82 +1,63 @@
-﻿//using Bogus;
-//using FizzWare.NBuilder;
-//using FluentAssertions;
-//using NSubstitute;
-//using StoreStock.Application.Services;
-//using StoreStock.Application.Services.Interfaces;
-//using StoreStock.Domain.Entities;
-//using StoreStock.Domain.Interfaces;
-//using System;
-//using System.Threading.Tasks;
-//using Xunit;
+﻿using Bogus;
+using FizzWare.NBuilder;
+using FluentAssertions;
+using NSubstitute;
+using StoreStock.Application.Models.Product;
+using StoreStock.Application.Services;
+using StoreStock.Application.Services.Interfaces;
+using StoreStock.Domain.Entities;
+using StoreStock.Domain.Interfaces;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
-//namespace StoreStock.UnitTests
-//{
-//    public class ProductTests
-//    {
-//        private readonly IProductRepository _productRepository;
-//        private readonly IProductService _productService;
-//        private readonly Product _defaultProduct;
-//        private readonly Faker _faker;
-//        private readonly int _defaultId;
-//        private readonly string _defaultName;
-//        private readonly string _defaultDescription;
-//        private readonly string _defaultCategry;
-//        private readonly long _defaultPrice;
-//        private readonly string _defaultProvider;
+namespace StoreStock.UnitTests
+{
+    public class ProductTests
+    {
+        private readonly IProductRepository _productRepository;
+        private readonly IProductService _productService;
 
-//        public ProductTests()
-//        {
-//            _productRepository = Substitute.For<IProductRepository>();
-//            _productService = new ProductService(_productRepository);
+        public ProductTests()
+        {
+            _productRepository = Substitute.For<IProductRepository>();
+            _productService = new ProductService(_productRepository);
+        }
 
-//            _faker = new Faker();
-//            _defaultId = 1;
-//            _defaultName = _faker.Random.Word();
-//            _defaultDescription = _faker.Random.Word();
-//            _defaultCategry = _faker.Random.Word();
-//            _defaultPrice = _faker.Random.Long();
+        [Fact]
+        public async Task Should_create_product()
+        {
+            var request = new ProductRequestModel();
 
-//            //_defaultProvider = Builder<Provider>
-//            //    .CreateNew()
-//            //    .Build();
+            await _productService.CreateProduct(request);
 
-//            _defaultProduct = Builder<Product>
-//                .CreateNew()
-//                .With(p => p.Id, _defaultId)
-//                .With(p => p.Name, _defaultName)
-//                .With(p => p.Description, _defaultDescription)
-//                .With(p => p.Category, _defaultCategry)
-//                .With(p => p.Provider, _defaultProvider)
-//                .With(p => p.Price, _defaultPrice)
-//                .With(p => p.IsActive, true)
-//                .Build();
-//        }
+            await _productRepository
+                .Received(1)
+                .Create(Arg.Is<Product>(x => x.Id == request.Id &&
+                                        x.Name == request.Name &&
+                                        x.Description == request.Description &&
+                                        x.Category == request.Category &&
+                                        x.Provider == request.Provider &&
+                                        x.Price == request.Price));
+        }
 
-//        //[Fact]
-//        //public async Task Should_create_product()
-//        //{
-//        //    await _productService.CreateProduct(_defaultProduct);
+        [Fact]
+        public async Task Should_throw_exception_when_try_create_product()
+        {
+            var mensagemDeErroEsperada = "Preencha corretamente os campos para cadastrar um produto.";
 
-//        //    await _productRepository
-//        //        .Received(1)
-//        //        .Create(Arg.Is<Product>(x => x.Id == _defaultId && 
-//        //                                x.Name == _defaultName &&
-//        //                                x.Description == _defaultDescription &&
-//        //                                x.Category == _defaultCategry &&
-//        //                                x.Provider == _defaultProvider &&
-//        //                                x.Price == _defaultPrice &&
-//        //                                x.IsActive));
-//        //}
+            Func<Task> func = () => _productService.CreateProduct(null);
 
-//        [Fact]
-//        public async Task Should_throw_exception_when_try_create_product()
-//        {
-//            var mensagemDeErroEsperada = "Preencha corretamente os campos para cadastrar um produto.";
+            await func.Should().ThrowAsync<Exception>().WithMessage(mensagemDeErroEsperada);
+        }
 
-//            Func<Task> func = () => _productService.CreateProduct(null);
+        [Fact]
+        public async Task Should_get_all()
+        {
+            await _productService.GetAllProducts();
 
-//            await func.Should().ThrowAsync<Exception>().WithMessage(mensagemDeErroEsperada);
-//        }
-//    }
-//}
+            await _productRepository
+                .Received(1).GetAll();
+        }
+    }
+}
