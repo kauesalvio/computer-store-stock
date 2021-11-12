@@ -12,5 +12,6 @@ namespace StoreStock.Application.Services.Interfaces
         Task<Product> GetProductById(int id);
         Task UpdateProduct(int id, ProductRequestModel request);
         Task DeleteProduct(int id);
+        Task<byte[]> CriarExcel();
     }
 }
