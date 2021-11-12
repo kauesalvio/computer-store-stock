@@ -2,5 +2,6 @@
 {
     public class ProductResponseModel : ProductBaseModel
     {
+        public int Id { get; set; }
     }
 }

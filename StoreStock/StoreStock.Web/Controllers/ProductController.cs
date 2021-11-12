@@ -60,5 +60,13 @@ namespace StoreStock.Web.Controllers
             await _productService.DeleteProduct(id);
             return Ok();
         }
+
+        [HttpGet, Route("export")]
+        public async Task<FileResult> ConsultarCsv()
+        {
+            var table = await _productService.CriarExcel();
+
+            return File(table, "text/csv", "ExportarExcel.csv");
+        }
     }
 }

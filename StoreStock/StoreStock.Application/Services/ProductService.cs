@@ -4,6 +4,7 @@ using StoreStock.Domain.Entities;
 using StoreStock.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StoreStock.Application.Services
@@ -11,10 +12,12 @@ namespace StoreStock.Application.Services
     public class ProductService : IProductService
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICsvService<ProductResponseModel> _csvService;
 
-        public ProductService(IProductRepository productRepository)
+        public ProductService(IProductRepository productRepository, ICsvService<ProductResponseModel> csvService)
         {
             _productRepository = productRepository;
+            _csvService = csvService;
         }
 
         public async Task CreateProduct(ProductRequestModel request)
@@ -53,6 +56,24 @@ namespace StoreStock.Application.Services
             var productDb = await CheckIfProductExist(id);
 
             _productRepository.Delete(productDb);
+        }
+
+        public async Task<byte[]> CriarExcel()
+        {
+            var products = await _productRepository.GetAll();
+
+            List<ProductResponseModel> productsExport = products.Select(p => new ProductResponseModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Category = p.Category,
+                Provider = p.Provider,
+                Price = p.Price,
+                Unity = p.Unity
+            }).ToList();
+
+            return _csvService.ExportarCsv(productsExport);
         }
 
         private async Task<Product> CheckIfProductExist(int id)

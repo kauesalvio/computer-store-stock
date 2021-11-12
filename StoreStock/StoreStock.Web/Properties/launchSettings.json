@@ -11,8 +11,6 @@
   "profiles": {
     "StoreStock.Web": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
